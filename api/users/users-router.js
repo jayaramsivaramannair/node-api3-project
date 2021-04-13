@@ -10,9 +10,17 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
   // RETURN AN ARRAY WITH ALL THE USERS
+  users.get()
+    .then((users) => {
+      res.status(200).json(users)
+    })
+    .catch((error) => {
+      next(error)
+    })
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', validateUserId, (req, res) => {
+  res.json(req.user)
   // RETURN THE USER OBJECT
   // this needs a middleware to verify user id
 });
@@ -38,6 +46,8 @@ router.get('/:id/posts', (req, res) => {
   // this needs a middleware to verify user id
 });
 
+//The Middleware to validate request body should come before the Middleware to verify user id as it is a less expensive operation
+// Less Expensive Operation i.e. No Database Lookup
 router.post('/:id/posts', (req, res) => {
   // RETURN THE NEWLY CREATED USER POST
   // this needs a middleware to verify user id

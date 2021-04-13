@@ -1,3 +1,6 @@
+const users = require("../users/users-model")
+const posts = require("../posts/posts-model")
+
 function logger(req, res, next) {
   // DO YOUR MAGIC
   const time = new Date().toISOString()
@@ -7,6 +10,20 @@ function logger(req, res, next) {
 
 function validateUserId(req, res, next) {
   // DO YOUR MAGIC
+  users.getById(req.params.id)
+    .then((user) => {
+      if (user) {
+        req.user = user
+        next()
+      } else {
+        res.status(404).json({
+          message: "user not found",
+        })
+      }
+    })
+    .catch((error) => {
+      next(error)
+    })
 }
 
 function validateUser(req, res, next) {
