@@ -1,7 +1,10 @@
 const express = require('express');
 
 // You will need `users-model.js` and `posts-model.js` both
+const users = require("./users-model");
+const posts = require("../posts/posts-model");
 // The middleware functions also need to be required
+const { logger, validatePost, validateUser, validateUserId } = require("../middleware/middleware");
 
 const router = express.Router();
 
@@ -42,3 +45,4 @@ router.post('/:id/posts', (req, res) => {
 });
 
 // do not forget to export the router
+module.exports = router
