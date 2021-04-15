@@ -22,7 +22,7 @@ server.get('/', (req, res) => {
 server.use(usersRouter)
 
 //Error handling middleware should be declared last
-server.use((err, req, res, next) => {
+server.use((err, req, res) => {
   console.log(err)
 
   res.status(500).json({
