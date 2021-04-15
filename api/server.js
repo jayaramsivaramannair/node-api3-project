@@ -14,8 +14,7 @@ server.use(logger())
 
 server.get('/', (req, res) => {
   res.status(200).json({
-    message: `Welcome to ${process.env.MY_WORLD || "Hobbiton"}`,
-    shire: `From ${process.env.PORT || 8000}`
+    message: `Welcome to ${process.env.MY_WORLD}`
   })
 });
 
