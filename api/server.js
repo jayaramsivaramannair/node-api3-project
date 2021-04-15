@@ -11,7 +11,7 @@ server.use(express.json())
 server.use(logger())
 
 server.get('/home', (req, res) => {
-  res.send(`<h2>Let's write some middleware!</h2>`);
+  res.send(`<h2>Welcome to ${process.env.WORLD}</h2>`);
 });
 
 server.use(usersRouter)
