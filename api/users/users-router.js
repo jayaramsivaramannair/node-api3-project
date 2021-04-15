@@ -9,7 +9,7 @@ const { validatePost, validateUser, validateUserId } = require("../middleware/mi
 
 const router = express.Router();
 
-router.get('/', (req, res, next) => {
+router.get('/api', (req, res, next) => {
   // RETURN AN ARRAY WITH ALL THE USERS
   users.get()
     .then((users) => {
@@ -20,13 +20,13 @@ router.get('/', (req, res, next) => {
     })
 });
 
-router.get('/:id', validateUserId(), (req, res) => {
+router.get('/api/:id', validateUserId(), (req, res) => {
   res.json(req.user)
   // RETURN THE USER OBJECT
   // this needs a middleware to verify user id
 });
 
-router.post('/', validateUser(), (req, res, next) => {
+router.post('/api', validateUser(), (req, res, next) => {
   // RETURN THE NEWLY CREATED USER OBJECT
   // this needs a middleware to check that the request body is valid
   users.insert(req.body)
@@ -38,7 +38,7 @@ router.post('/', validateUser(), (req, res, next) => {
     })
 });
 
-router.put('/:id', validateUser(), validateUserId(), (req, res, next) => {
+router.put('/api/:id', validateUser(), validateUserId(), (req, res, next) => {
   // RETURN THE FRESHLY UPDATED USER OBJECT
   // this needs a middleware to verify user id
   // and another middleware to check that the request body is valid
@@ -52,7 +52,7 @@ router.put('/:id', validateUser(), validateUserId(), (req, res, next) => {
 
 });
 
-router.delete('/:id', validateUserId(), (req, res, next) => {
+router.delete('/api/:id', validateUserId(), (req, res, next) => {
   // RETURN THE FRESHLY DELETED USER OBJECT
   // this needs a middleware to verify user id
   users.remove(req.params.id)
@@ -65,7 +65,7 @@ router.delete('/:id', validateUserId(), (req, res, next) => {
 });
 
 
-router.get('/:id/posts', validateUserId(), (req, res, next) => {
+router.get('/api/:id/posts', validateUserId(), (req, res, next) => {
   // RETURN THE ARRAY OF USER POSTS
   // this needs a middleware to verify user id
   users.getUserPosts(req.params.id)
@@ -79,7 +79,7 @@ router.get('/:id/posts', validateUserId(), (req, res, next) => {
 
 //The Middleware to validate request body should come before the Middleware to verify user id as it is a less expensive operation
 // Less Expensive Operation i.e. No Database Lookup
-router.post('/:id/posts', validatePost(), validateUserId(), (req, res, next) => {
+router.post('/api/:id/posts', validatePost(), validateUserId(), (req, res, next) => {
   // RETURN THE NEWLY CREATED USER POST
   // this needs a middleware to verify user id
   // and another middleware to check that the request body is valid

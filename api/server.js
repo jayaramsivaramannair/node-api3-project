@@ -1,3 +1,4 @@
+
 const express = require('express');
 const { logger } = require("./middleware/middleware")
 
@@ -10,9 +11,14 @@ server.use(express.json())
 // global middlewares and the user's router need to be connected here
 server.use(logger())
 
-server.get('/home', (req, res) => {
-  res.send(`<h2>Welcome to ${process.env.WORLD}</h2>`);
+
+server.get('/', (req, res) => {
+  res.status(200).json({
+    message: `Welcome to ${process.env.MY_WORLD || "Hobbiton"}`,
+    shire: `From ${process.env.PORT || 8000}`
+  })
 });
+
 
 server.use(usersRouter)
 
